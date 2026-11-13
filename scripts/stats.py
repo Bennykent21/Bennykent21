@@ -7,7 +7,70 @@ import urllib.request
 
 LOGIN = os.environ.get("GH_LOGIN", "Bennykent21")
 TOKEN = os.environ["GITHUB_TOKEN"]
-OUT = sys.argv[1] if len(sys.argv) > 1 else "dist/stats.svg"
+OUT_DIR = sys.argv[1] if len(sys.argv) > 1 else "dist"
+
+
+COLORS = {
+    "Kotlin": "#A97BFF", "Dart": "#00B4AB", "TypeScript": "#3178C6", "JavaScript": "#F1E05A",
+    "Python": "#3572A5", "CSS": "#663399", "HTML": "#E34C26", "PLpgSQL": "#336790",
+    "Java": "#B07219", "Shell": "#89E051", "Swift": "#F05138", "Go": "#00ADD8",
+}
+
+
+def rest(path):
+    req = urllib.request.Request(
+        f"https://api.github.com{path}",
+        headers={"Authorization": f"bearer {TOKEN}", "Accept": "application/vnd.github+json"},
+    )
+    with urllib.request.urlopen(req) as r:
+        return json.load(r)
+
+
+def fetch_langs():
+    totals = {}
+    for repo in rest(f"/users/{LOGIN}/repos?per_page=100&type=owner"):
+        if repo["fork"] or repo["archived"]:
+            continue
+        for lang, size in rest(f"/repos/{LOGIN}/{repo['name']}/languages").items():
+            totals[lang] = totals.get(lang, 0) + size
+    return totals
+
+
+def langs_svg(totals, top=6):
+    items = sorted(totals.items(), key=lambda kv: -kv[1])
+    total = sum(totals.values()) or 1
+    shown = items[:top]
+    other = sum(v for _, v in items[top:])
+    if other:
+        shown.append(("Other", other))
+    w, h, pad = 800, 128, 24
+    bar_w = w - 2 * pad
+    x, bars, legend = pad, [], []
+    for i, (lang, size) in enumerate(shown):
+        frac = size / total
+        color = COLORS.get(lang, "#8b949e")
+        seg = max(bar_w * frac, 2)
+        bars.append(f'<rect x="{x:.1f}" y="50" width="{seg:.1f}" height="12" fill="{color}"/>')
+        x += seg
+        col, row = i % 4, i // 4
+        lx, ly = pad + col * (bar_w / 4), 88 + row * 24
+        legend.append(f'<circle cx="{lx+5:.1f}" cy="{ly-4}" r="5" fill="{color}"/>'
+                      f'<text x="{lx+16:.1f}" y="{ly}" class="lbl">{lang} <tspan class="pct">{frac*100:.1f}%</tspan></text>')
+    h = 88 + ((len(shown) - 1) // 4) * 24 + 22
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img" aria-label="Most used languages">
+<style>
+  .bg{{fill:#ffffff;stroke:#d0d7de}} .ttl{{fill:#1f2328;font:600 15px 'Segoe UI',Ubuntu,sans-serif}}
+  .lbl{{fill:#1f2328;font:400 13px 'Segoe UI',Ubuntu,sans-serif}} .pct{{fill:#57606a}}
+  @media (prefers-color-scheme: dark) {{
+    .bg{{fill:#0d1117;stroke:#30363d}} .ttl{{fill:#e6edf3}} .lbl{{fill:#e6edf3}} .pct{{fill:#8b949e}}
+  }}
+</style>
+<rect x="0.5" y="0.5" width="{w-1}" height="{h-1}" rx="10" class="bg"/>
+<text x="{pad}" y="34" class="ttl">Most used languages</text>
+<clipPath id="r"><rect x="{pad}" y="50" width="{bar_w}" height="12" rx="6"/></clipPath>
+<g clip-path="url(#r)">{"".join(bars)}</g>
+{"".join(legend)}
+</svg>'''
 
 
 def gql(query, **variables):
@@ -97,8 +160,12 @@ def svg(s):
 
 
 if __name__ == "__main__":
-    days = json.load(open(os.environ["FAKE_DAYS"])) if os.environ.get("FAKE_DAYS") else fetch_days()
-    os.makedirs(os.path.dirname(OUT) or ".", exist_ok=True)
-    with open(OUT, "w") as f:
+    fake = os.environ.get("FAKE_DAYS")
+    days = json.load(open(fake)) if fake else fetch_days()
+    langs = json.load(open(os.environ["FAKE_LANGS"])) if fake else fetch_langs()
+    os.makedirs(OUT_DIR, exist_ok=True)
+    with open(os.path.join(OUT_DIR, "stats.svg"), "w") as f:
         f.write(svg(summarize(days)))
-    print(summarize(days))
+    with open(os.path.join(OUT_DIR, "langs.svg"), "w") as f:
+        f.write(langs_svg(langs))
+    print(summarize(days), sorted(langs.items(), key=lambda kv: -kv[1])[:6])

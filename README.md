@@ -50,7 +50,7 @@
 </p>
 
 <p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Bennykent21&layout=compact&theme=github_dark&hide_border=true" alt="Top languages">
+  <img src="https://raw.githubusercontent.com/Bennykent21/Bennykent21/output/langs.svg" alt="Most used languages">
 </p>
 
 <p align="center">

@@ -16,11 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Contribution stats card
+      - name: Contribution stats and languages cards
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_LOGIN: ${{ github.repository_owner }}
-        run: python3 scripts/stats.py dist/stats.svg
+        run: python3 scripts/stats.py dist
 
       - name: Contribution snake
         uses: Platane/snk/svg-only@v3
