@@ -6,7 +6,6 @@
 
 <p align="center">
   <a href="https://github.com/Bennykent21"><img src="https://img.shields.io/github/followers/Bennykent21?label=Followers&style=for-the-badge&color=0d1117&labelColor=24292f&logo=github" alt="Followers"></a>
-  <img src="https://komarev.com/ghpvc/?username=Bennykent21&style=for-the-badge&color=24292f&label=Profile+views" alt="Profile views">
 </p>
 
 ---
@@ -47,12 +46,18 @@
 ### 📊 GitHub stats
 
 <p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=Bennykent21&show_icons=true&theme=github_dark&hide_border=true&count_private=true" alt="GitHub stats">
+  <img src="https://raw.githubusercontent.com/Bennykent21/Bennykent21/output/stats.svg" alt="Contribution stats">
+</p>
+
+<p align="center">
   <img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Bennykent21&layout=compact&theme=github_dark&hide_border=true" alt="Top languages">
 </p>
 
 <p align="center">
-  <img src="https://streak-stats.demolab.com?user=Bennykent21&theme=github-dark-blue&hide_border=true" alt="GitHub streak">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Bennykent21/Bennykent21/output/snake-dark.svg">
+    <img src="https://raw.githubusercontent.com/Bennykent21/Bennykent21/output/snake.svg" alt="Contribution snake eating my contribution graph">
+  </picture>
 </p>
 
 ---
