@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="134" viewBox="0 0 800 134" role="img" aria-label="Most used languages">
+<style>
+  .bg{fill:#ffffff;stroke:#d0d7de} .ttl{fill:#1f2328;font:600 15px 'Segoe UI',Ubuntu,sans-serif}
+  .lbl{fill:#1f2328;font:400 13px 'Segoe UI',Ubuntu,sans-serif} .pct{fill:#57606a}
+  @media (prefers-color-scheme: dark) {
+    .bg{fill:#0d1117;stroke:#30363d} .ttl{fill:#e6edf3} .lbl{fill:#e6edf3} .pct{fill:#8b949e}
+  }
+</style>
+<rect x="0.5" y="0.5" width="799" height="133" rx="10" class="bg"/>
+<text x="24" y="34" class="ttl">Most used languages</text>
+<clipPath id="r"><rect x="24" y="50" width="752" height="12" rx="6"/></clipPath>
+<g clip-path="url(#r)"><rect x="24.0" y="50" width="454.2" height="12" fill="#A97BFF"/><rect x="478.2" y="50" width="125.9" height="12" fill="#3178C6"/><rect x="604.0" y="50" width="82.2" height="12" fill="#00B4AB"/><rect x="686.2" y="50" width="64.0" height="12" fill="#3572A5"/><rect x="750.2" y="50" width="11.7" height="12" fill="#663399"/><rect x="761.8" y="50" width="8.0" height="12" fill="#336790"/><rect x="769.8" y="50" width="6.2" height="12" fill="#8b949e"/></g>
+<circle cx="29.0" cy="84" r="5" fill="#A97BFF"/><text x="40.0" y="88" class="lbl">Kotlin <tspan class="pct">60.4%</tspan></text><circle cx="217.0" cy="84" r="5" fill="#3178C6"/><text x="228.0" y="88" class="lbl">TypeScript <tspan class="pct">16.7%</tspan></text><circle cx="405.0" cy="84" r="5" fill="#00B4AB"/><text x="416.0" y="88" class="lbl">Dart <tspan class="pct">10.9%</tspan></text><circle cx="593.0" cy="84" r="5" fill="#3572A5"/><text x="604.0" y="88" class="lbl">Python <tspan class="pct">8.5%</tspan></text><circle cx="29.0" cy="108" r="5" fill="#663399"/><text x="40.0" y="112" class="lbl">CSS <tspan class="pct">1.6%</tspan></text><circle cx="217.0" cy="108" r="5" fill="#336790"/><text x="228.0" y="112" class="lbl">PLpgSQL <tspan class="pct">1.1%</tspan></text><circle cx="405.0" cy="108" r="5" fill="#8b949e"/><text x="416.0" y="112" class="lbl">Other <tspan class="pct">0.8%</tspan></text>
+</svg>
